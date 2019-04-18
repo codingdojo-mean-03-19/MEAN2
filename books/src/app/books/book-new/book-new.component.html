@@ -1,0 +1,127 @@
+<section class="col-lg-12 col-sm-12">
+  <fieldset>
+    <legend>Create Book</legend>
+    <form
+      (ngSubmit)="onSubmit($event, bookForm)"
+      #bookForm="ngForm"
+      autocomplete="off"
+    >
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          name="title"
+          [(ngModel)]="book.title"
+          #title="ngModel"
+          placeholder="title"
+          minlength="3"
+          required
+        />
+
+        <div *ngIf="(title.touched || title.dirty) && title.errors">
+          <div *ngIf="title?.errors.required" class="alert alert-danger">
+            You must enter a book title!
+          </div>
+          <div *ngIf="title?.errors.minlength" class="alert alert-danger">
+            Title must be at least
+            {{ title?.errors.minlength.requiredLength }} characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="author">Author:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="author"
+          name="author"
+          [(ngModel)]="book.author"
+          #author="ngModel"
+          placeholder="author"
+          minlength="3"
+          required
+        />
+        <div *ngIf="(author.touched || author.dirty) && author.errors">
+          <div *ngIf="author?.errors.required" class="alert alert-danger">
+            You must enter a book author!
+          </div>
+          <div *ngIf="author?.errors.minlength" class="alert alert-danger">
+            Author must be at least
+            {{ author?.errors.minlength.requiredLength }} characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="year">Year:</label>
+        <input
+          class="select form-control"
+          name="year"
+          id="year"
+          [(ngModel)]="book.year"
+          #year="ngModel"
+          placeholder="select an year"
+        />
+
+        <div *ngIf="(year.touched || year.dirty) && year.errors">
+          <div *ngIf="year?.errors.required" class="alert alert-danger">
+            You must enter a book publication year!
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pages">Page Count:</label>
+        <input
+          type="number"
+          class="form-control"
+          min="1"
+          id="pages"
+          name="pages"
+          [(ngModel)]="book.pages"
+          #pages="ngModel"
+          placeholder="pages"
+          required
+        />
+        <div *ngIf="(pages.touched || pages.dirty) && pages.errors">
+          <div *ngIf="pages?.errors.required" class="alert alert-danger">
+            You must enter the books page count!
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="publisher">Publisher:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="publisher"
+          name="publisher"
+          [(ngModel)]="book.publisher"
+          minlength="3"
+          maxlength="20"
+          #publisher="ngModel"
+          placeholder="publisher"
+          required
+        />
+
+        <div *ngIf="(publisher.touched || publisher.dirty) && publisher.errors">
+          <div *ngIf="publisher?.errors.required" class="alert alert-danger">
+            You must enter a book publisher!
+          </div>
+          <div
+            *ngIf="publisher?.errors.minlength"
+            class="alert alert-danger text-center"
+          >
+            Publisher must be at least
+            {{ publisher?.errors.minlength.requiredLength }} characters.
+            {{
+              publisher?.errors.minlength.requiredLength -
+                publisher?.errors.minlength.actualLength
+            }}
+          </div>
+        </div>
+      </div>
+      <button *ngIf="bookForm.valid">Submit</button>
+    </form>
+  </fieldset>
+</section>

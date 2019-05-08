@@ -16,7 +16,10 @@ module.exports = {
 
     const { book_id: bookId } = request.params;
     Book.findById(bookId)
-      .then(book => response.json(book))
+      .then(book => {
+        console.log('book found', book);
+        response.json(book);
+      })
       .catch(error => response.status(Http.NoContent).json(error));
   },
 
